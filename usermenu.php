@@ -6,7 +6,11 @@ use CRM_Usermenu_ExtensionUtil as E;
 /**
  * Implements hook_civicrm_config().
  *
+<<<<<<< HEAD
  * @link https://docs.civicrm.org/dev/en/latest/hooks/hook_civicrm_config/
+=======
+ * @link https://docs.civicrm.org/dev/en/latest/hooks/hook_civicrm_config/
+>>>>>>> CATL-1224: Initial commit
  */
 function usermenu_civicrm_config(&$config) {
   _usermenu_civix_civicrm_config($config);
