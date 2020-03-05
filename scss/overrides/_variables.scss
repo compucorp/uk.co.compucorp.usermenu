@@ -1,0 +1,15 @@
+@import 'SCSSROOT/org.civicrm.shoreditch/scss/bootstrap/overrides/variables';
+
+//== User Menu
+//
+//##
+$civicrm-usermenu-user-menu-color: $gray-darker;
+$civicrm-usermenu-user-menu-line-height: 40px;
+$civicrm-usermenu-user-menu-minify-breakpoint: 1250px;
+$civicrm-usermenu-user-menu-bg-hover: $gray-lighter;
+$civicrm-usermenu-user-menu-dropdown-bg: $crm-white;
+$civicrm-usermenu-user-menu-dropdown-username-color: $gray-darker;
+$civicrm-usermenu-user-menu-dropdown-link-color: $gray-darker;
+$civicrm-usermenu-user-menu-dropdown-link-color-hover: $gray-darker;
+$civicrm-usermenu-user-menu-dropdown-link-bg-hover: $gray-lighter;
+$civicrm-usermenu-user-menu-logo-size: 17px;

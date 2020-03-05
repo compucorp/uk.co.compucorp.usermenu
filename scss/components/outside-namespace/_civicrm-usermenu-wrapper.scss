@@ -1,0 +1,27 @@
+#civicrm-usermenu-wrapper {
+  background: $crm-white;
+  border-bottom: 1px solid $crm-grayblue-dark;
+  box-shadow: 0 3px 18px 0 rgba($gray-darker, 0.25);
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+
+  #civicrm-menu {
+    box-shadow: none;
+    border-bottom: none;
+    float: left;
+    position: static !important;
+    width: auto;
+  }
+
+  .civicrm-usermenu {
+    float: right;
+  }
+}
+
+.crm-menubar-hidden #civicrm-usermenu-wrapper {
+  .civicrm-usermenu {
+    display: none;
+  }
+}
