@@ -6,7 +6,7 @@ use CRM_Usermenu_ExtensionUtil as E;
 /**
  * Implements hook_civicrm_config().
  *
- * @link https://docs.civicrm.org/dev/en/latest/hooks/hook_civicrm_config/ 
+ * @link https://docs.civicrm.org/dev/en/latest/hooks/hook_civicrm_config/
  */
 function usermenu_civicrm_config(&$config) {
   _usermenu_civix_civicrm_config($config);
@@ -168,3 +168,13 @@ function usermenu_civicrm_navigationMenu(&$menu) {
   ));
   _usermenu_civix_navigationMenu($menu);
 } // */
+
+/**
+ * Implements hook_civicrm_coreResourceList().
+ */
+function usermenu_civicrm_coreResourceList(&$items, $region) {
+  if ($region == 'html-header') {
+    CRM_Core_Resources::singleton()->addScriptFile('uk.co.compucorp.usermenu', 'js/usermenu.js', 1010);
+    CRM_Core_Resources::singleton()->addStyleFile('uk.co.compucorp.usermenu', 'css/usermenu.min.css', 100, 'html-header');
+  }
+}
