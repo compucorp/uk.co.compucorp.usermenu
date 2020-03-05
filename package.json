@@ -1,0 +1,26 @@
+{
+  "name": "uk.co.compucorp.usermenu",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "civicrm-scssroot": "git://github.com/totten/civicrm-scssroot.git#v0.1.1",
+    "gulp": "^4.0.2",
+    "gulp-autoprefixer": "^7.0.1",
+    "gulp-clean-css": "^4.2.0",
+    "gulp-postcss": "^8.0.0",
+    "gulp-rename": "^2.0.0",
+    "gulp-sass": "^4.0.2",
+    "gulp-sass-glob": "^1.1.0",
+    "gulp-sourcemaps": "^2.6.5",
+    "gulp-strip-css-comments": "^2.0.0",
+    "gulp-transform-selectors": "0.0.2",
+    "postcss-discard-duplicates": "^4.0.2",
+    "postcss-prefix-selector": "^1.7.2"
+  }
+}
