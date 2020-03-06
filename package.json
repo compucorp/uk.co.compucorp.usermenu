@@ -20,6 +20,7 @@
     "gulp-sourcemaps": "^2.6.5",
     "gulp-strip-css-comments": "^2.0.0",
     "gulp-transform-selectors": "0.0.2",
+    "lodash.template": ">=4.5.0",
     "postcss-discard-duplicates": "^4.0.2",
     "postcss-prefix-selector": "^1.7.2"
   }
