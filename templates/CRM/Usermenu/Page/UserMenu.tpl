@@ -1,7 +1,7 @@
 <div class="civicrm-usermenu">
   <div class="civicrm-usermenu__data">
-    <div class="civicrm-usermenu-card">
-      <div class="civicrm-usermenu-card__picture civicrm-usermenu-card__picture--small">
+    <div class="civicrm-usermenu__card">
+      <div class="civicrm-usermenu__card__picture civicrm-usermenu__card__picture--small">
         <img src="{$image}" alt="{$username|escape}">
       </div>
     </div>
