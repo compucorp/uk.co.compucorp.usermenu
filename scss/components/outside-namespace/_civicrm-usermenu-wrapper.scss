@@ -1,7 +1,7 @@
 #civicrm-usermenu-wrapper {
   background: $crm-white;
   border-bottom: 1px solid $crm-grayblue-dark;
-  box-shadow: 0 3px 18px 0 rgba($gray-darker, 0.25);
+  box-shadow: $box-shadow;
   position: fixed;
   top: 0;
   width: 100%;
