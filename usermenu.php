@@ -141,40 +141,53 @@ function usermenu_civicrm_themes(&$themes) {
   _usermenu_civix_civicrm_themes($themes);
 }
 
-// --- Functions below this ship commented out. Uncomment as required. ---
-
 /**
- * Implements hook_civicrm_preProcess().
+ * Implements hook_civicrm_alterContent().
+ * Adds extra settings fields to the Civicase Admin Settings form.
  *
- * @link https://docs.civicrm.org/dev/en/latest/hooks/hook_civicrm_preProcess
- *
-function usermenu_civicrm_preProcess($formName, &$form) {
+ * @link https://docs.civicrm.org/dev/en/latest/hooks/hook_civicrm_alterContent/
+ */
+function usermenu_civicrm_alterContent (&$content, $context, $templateName, $object) {
+  $isViewingMiscSettingsForm = get_class($object) === CRM_Admin_Form_Setting_Miscellaneous::class;
 
-} // */
+  if (!$isViewingMiscSettingsForm) {
+    return;
+  }
 
-/**
- * Implements hook_civicrm_navigationMenu().
- *
- * @link https://docs.civicrm.org/dev/en/latest/hooks/hook_civicrm_navigationMenu
- *
-function usermenu_civicrm_navigationMenu(&$menu) {
-  _usermenu_civix_insert_navigation_menu($menu, 'Mailings', array(
-    'label' => E::ts('New subliminal message'),
-    'name' => 'mailing_subliminal_message',
-    'url' => 'civicrm/mailing/subliminal',
-    'permission' => 'access CiviMail',
-    'operator' => 'OR',
-    'separator' => 0,
-  ));
-  _usermenu_civix_navigationMenu($menu);
-} // */
+  $settingsTemplate = &CRM_Core_Smarty::singleton();
+  $settingsTemplateHtml = $settingsTemplate->fetchWith('CRM/Usermenu/Admin/Form/Settings.tpl', []);
+
+  $doc = phpQuery::newDocumentHTML($content);
+  $doc->find('table.form-layout:eq(1) tr:last')->append($settingsTemplateHtml);
+
+  $content = $doc->getDocument();
+}
 
 /**
  * Implements hook_civicrm_coreResourceList().
  */
 function usermenu_civicrm_coreResourceList(&$items, $region) {
-  if ($region == 'html-header') {
+  $allowCiviCrmUserMenu = (bool) Civi::settings()->get('allowCivicrmUserMenu');
+  $isHeaderRegion = $region === 'html-header';
+
+  if ($isHeaderRegion && $allowCiviCrmUserMenu) {
     CRM_Core_Resources::singleton()->addScriptFile('uk.co.compucorp.usermenu', 'js/usermenu.js', 1010);
     CRM_Core_Resources::singleton()->addStyleFile('uk.co.compucorp.usermenu', 'css/usermenu.min.css', 100, 'html-header');
   }
+}
+
+/**
+ * Implements hook_civicrm_preProcess().
+ */
+function usermenu_civicrm_preProcess($formName, &$form) {
+  $isViewingMiscSettingsForm = $formName === CRM_Admin_Form_Setting_Miscellaneous::class;
+
+  if (!$isViewingMiscSettingsForm) {
+    return;
+  }
+
+  $settings = $form->getVar('_settings');
+  $settings['allowCivicrmUserMenu'] = CRM_Core_BAO_Setting::SYSTEM_PREFERENCES_NAME;
+
+  $form->setVar('_settings', $settings);
 }
