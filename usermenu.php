@@ -147,8 +147,8 @@ function usermenu_civicrm_themes(&$themes) {
  *
  * @link https://docs.civicrm.org/dev/en/latest/hooks/hook_civicrm_alterContent/
  */
-function usermenu_civicrm_alterContent (&$content, $context, $templateName, $form) {
-  $isViewingMiscSettingsForm = get_class($form) === CRM_Admin_Form_Setting_Miscellaneous::class;
+function usermenu_civicrm_alterContent (&$content, $context, $templateName, $object) {
+  $isViewingMiscSettingsForm = get_class($object) === CRM_Admin_Form_Setting_Miscellaneous::class;
 
   if (!$isViewingMiscSettingsForm) {
     return;
