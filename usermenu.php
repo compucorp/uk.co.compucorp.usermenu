@@ -170,6 +170,28 @@ function usermenu_civicrm_navigationMenu(&$menu) {
 } // */
 
 /**
+ * Implements hook_civicrm_alterContent().
+ * Adds extra settings fields to the Civicase Admin Settings form.
+ *
+ * @link https://docs.civicrm.org/dev/en/latest/hooks/hook_civicrm_alterContent/
+ */
+function usermenu_civicrm_alterContent (&$content, $context, $templateName, $form) {
+  $isViewingMiscSettingsForm = get_class($form) === CRM_Admin_Form_Setting_Miscellaneous::class;
+
+  if (!$isViewingMiscSettingsForm) {
+    return;
+  }
+
+  $settingsTemplate = &CRM_Core_Smarty::singleton();
+  $settingsTemplateHtml = $settingsTemplate->fetchWith('CRM/Usermenu/Admin/Form/Settings.tpl', []);
+
+  $doc = phpQuery::newDocumentHTML($content);
+  $doc->find('table.form-layout:eq(1) tr:last')->append($settingsTemplateHtml);
+
+  $content = $doc->getDocument();
+}
+
+/**
  * Implements hook_civicrm_coreResourceList().
  */
 function usermenu_civicrm_coreResourceList(&$items, $region) {
@@ -177,4 +199,20 @@ function usermenu_civicrm_coreResourceList(&$items, $region) {
     CRM_Core_Resources::singleton()->addScriptFile('uk.co.compucorp.usermenu', 'js/usermenu.js', 1010);
     CRM_Core_Resources::singleton()->addStyleFile('uk.co.compucorp.usermenu', 'css/usermenu.min.css', 100, 'html-header');
   }
+}
+
+/**
+ * Implements hook_civicrm_preProcess().
+ */
+function usermenu_civicrm_preProcess($formName, &$form) {
+  $isViewingMiscSettingsForm = $formName === CRM_Admin_Form_Setting_Miscellaneous::class;
+
+  if (!$isViewingMiscSettingsForm) {
+    return;
+  }
+
+  $settings = $form->getVar('_settings');
+  $settings['allowCivicrmUserMenu'] = CRM_Core_BAO_Setting::SYSTEM_PREFERENCES_NAME;
+
+  $form->setVar('_settings', $settings);
 }
