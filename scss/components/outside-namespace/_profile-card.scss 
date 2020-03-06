@@ -1,0 +1,32 @@
+.civicrm-usermenu__card {
+  display: inline-block;
+}
+
+.civicrm-usermenu__card__name {
+  display: table-cell;
+  vertical-align: middle;
+}
+
+.civicrm-usermenu__card__picture {
+  display: table-cell;
+  overflow: hidden;
+  vertical-align: middle;
+
+  > img {
+    background: $gray-light;
+    border-radius: 50%;
+    width: 100%;
+    vertical-align: middle;
+  }
+
+  + .civicrm-usermenu__card__name {
+    padding-left: 15px;
+  }
+}
+
+.civicrm-usermenu__card__picture--small {
+  > img {
+    height: 26px;
+    width: 26px;
+  }
+}
