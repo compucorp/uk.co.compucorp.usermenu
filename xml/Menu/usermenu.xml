@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<menu>
+  <item>
+    <path>civicrm/user-menu</path>
+    <page_callback>CRM_Usermenu_Page_UserMenu</page_callback>
+    <title>User Menu</title>
+    <access_arguments>access CiviCRM</access_arguments>
+  </item>
+</menu>
