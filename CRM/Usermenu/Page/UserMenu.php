@@ -119,7 +119,7 @@ class CRM_Usermenu_Page_UserMenu extends CRM_Core_Page {
       return $this->contactData()['display_name'];
     }
 
-    return 'Anonymity';
+    return 'Anonymous';
   }
 
   /**
