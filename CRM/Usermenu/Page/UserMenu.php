@@ -47,7 +47,9 @@ class CRM_Usermenu_Page_UserMenu extends CRM_Core_Page {
    * @return string
    */
   private function getDefaultImagePath() {
-    $modulePath = (new CRM_Extension_System())
+    $container = (new CRM_Extension_System())->getFullContainer();
+    var_export($container); exit;
+    $modulePath = $container
       ->getFullContainer()
       ->getResUrl('uk.co.compucorp.usermenu');
 
