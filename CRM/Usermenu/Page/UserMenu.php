@@ -8,16 +8,6 @@ class CRM_Usermenu_Page_UserMenu extends CRM_Core_Page {
   const DEFAULT_USER_IMAGE_PATH = '%{base}/images/profile-default.png';
 
   /**
-   * @const string
-   */
-  const EDIT_USER_PATH = '/user/%{userId}/edit';
-
-  /**
-   * @const string
-   */
-  const LOGOUT_PATH = '/user/logout';
-
-  /**
    * The contact data used to build the menu
    *
    * @var array
@@ -33,10 +23,9 @@ class CRM_Usermenu_Page_UserMenu extends CRM_Core_Page {
   public function run() {
     $this->contactData();
 
+    $this->assign('menuItems', $this->getMenuItems());
     $this->assign('username', $this->getUserName());
     $this->assign('image', $this->getUserImagePath());
-    $this->assign('editLink', $this->getEditAccountPath());
-    $this->assign('logoutLink', self::LOGOUT_PATH);
 
     return parent::run();
   }
@@ -55,12 +44,19 @@ class CRM_Usermenu_Page_UserMenu extends CRM_Core_Page {
   }
 
   /**
-   * Returns the path to the "Edit Account" for the current logged in user.
+   * Returns the user menu navigation items.
    *
-   * @return string
+   * @return Array
    */
-  private function getEditAccountPath () {
-    return str_replace('%{userId}', $this->contactData['cmsId'], self::EDIT_USER_PATH);
+  private function getMenuItems() {
+    $menuItems = civicrm_api3('Navigation', 'get', [
+      'sequential' => 1,
+      'is_active' => 1,
+      'parent_id' => 'user-menu-ext__user-menu',
+      'options' => [ 'sort' => 'weight ASC']
+    ]);
+
+    return $menuItems['values'];
   }
 
   /**

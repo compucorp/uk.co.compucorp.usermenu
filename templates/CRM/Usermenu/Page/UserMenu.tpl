@@ -12,16 +12,14 @@
       <li class="civicrm-usermenu__dropdown__username">
         <span>Signed in as <strong>{$username|escape}</strong></span>
       </li>
-      <li>
-        <a href="{$editLink}">
-          <i class="fa fa-edit"></i>{ts}My Account{/ts}
-        </a>
-      </li>
-      <li>
-        <a href="{$logoutLink}">
-          <i class="fa fa-sign-out"></i>{ts}Log Out{/ts}
-        </a>
-      </li>
+      {foreach from=$menuItems item=menuItem}
+        <li data-user-menu-item-name="{$menuItem.name}">
+          <a href="{$menuItem.url}">
+            <i class="{$menuItem.icon}"></i>
+            {$menuItem.label}
+          </a>
+        </li>
+      {/foreach}
     </ul>
   </nav>
 </div>
