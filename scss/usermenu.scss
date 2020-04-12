@@ -1,6 +1,6 @@
 @import 'overrides/variables';
 
 .___outside-namespace {
-  @import "components/outside-namespace/*";
-  @import "overrides/crm/*";
+  @import 'components/outside-namespace/**/*';
+  @import 'overrides/crm/**/*';
 }
