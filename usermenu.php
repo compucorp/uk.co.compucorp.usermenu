@@ -142,28 +142,6 @@ function usermenu_civicrm_themes(&$themes) {
 }
 
 /**
- * Implements hook_civicrm_alterContent().
- * Adds extra settings fields to the Civicase Admin Settings form.
- *
- * @link https://docs.civicrm.org/dev/en/latest/hooks/hook_civicrm_alterContent/
- */
-function usermenu_civicrm_alterContent (&$content, $context, $templateName, $object) {
-  $isViewingMiscSettingsForm = get_class($object) === CRM_Admin_Form_Setting_Miscellaneous::class;
-
-  if (!$isViewingMiscSettingsForm) {
-    return;
-  }
-
-  $settingsTemplate = &CRM_Core_Smarty::singleton();
-  $settingsTemplateHtml = $settingsTemplate->fetchWith('CRM/Usermenu/Admin/Form/Settings.tpl', []);
-
-  $doc = phpQuery::newDocumentHTML($content);
-  $doc->find('table.form-layout:eq(1) tr:last')->append($settingsTemplateHtml);
-
-  $content = $doc->getDocument();
-}
-
-/**
  * Implements hook_civicrm_coreResourceList().
  */
 function usermenu_civicrm_coreResourceList(&$items, $region) {
@@ -177,20 +155,4 @@ function usermenu_civicrm_coreResourceList(&$items, $region) {
       $hook->run($items, $region);
     }
   }
-}
-
-/**
- * Implements hook_civicrm_preProcess().
- */
-function usermenu_civicrm_preProcess($formName, &$form) {
-  $isViewingMiscSettingsForm = $formName === CRM_Admin_Form_Setting_Miscellaneous::class;
-
-  if (!$isViewingMiscSettingsForm) {
-    return;
-  }
-
-  $settings = $form->getVar('_settings');
-  $settings['allowCivicrmUserMenu'] = CRM_Core_BAO_Setting::SYSTEM_PREFERENCES_NAME;
-
-  $form->setVar('_settings', $settings);
 }
