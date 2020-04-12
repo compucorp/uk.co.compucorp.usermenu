@@ -167,12 +167,15 @@ function usermenu_civicrm_alterContent (&$content, $context, $templateName, $obj
  * Implements hook_civicrm_coreResourceList().
  */
 function usermenu_civicrm_coreResourceList(&$items, $region) {
-  $allowCiviCrmUserMenu = (bool) Civi::settings()->get('allowCivicrmUserMenu');
-  $isHeaderRegion = $region === 'html-header';
+  $hooks = [
+    new CRM_Usermenu_Hooks_CoreResourceList_Stylesheets(),
+    new CRM_Usermenu_Hooks_CoreResourceList_UserMenu(),
+  ];
 
-  if ($isHeaderRegion && $allowCiviCrmUserMenu) {
-    CRM_Core_Resources::singleton()->addScriptFile('uk.co.compucorp.usermenu', 'js/usermenu.js', 1010);
-    CRM_Core_Resources::singleton()->addStyleFile('uk.co.compucorp.usermenu', 'css/usermenu.min.css', 100, 'html-header');
+  foreach ($hooks as $hook) {
+    if ($hook->shouldRun($items, $region)) {
+      $hook->run($items, $region);
+    }
   }
 }
 
