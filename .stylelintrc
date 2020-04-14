@@ -9,6 +9,7 @@
     "max-nesting-depth": 3,
     "no-extra-semicolons": true,
     "no-duplicate-selectors": true,
-    "scss/dollar-variable-colon-space-after": "at-least-one-space"
+    "scss/dollar-variable-colon-space-after": "at-least-one-space",
+    "selector-max-id": null
   }
 }
