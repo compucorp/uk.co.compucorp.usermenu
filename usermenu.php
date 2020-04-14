@@ -135,7 +135,7 @@ function usermenu_civicrm_entityTypes(&$entityTypes) {
 }
 
 /**
- * Implements hook_civicrm_thems().
+ * Implements hook_civicrm_themes().
  */
 function usermenu_civicrm_themes(&$themes) {
   _usermenu_civix_civicrm_themes($themes);

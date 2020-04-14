@@ -15,7 +15,7 @@ class CRM_Usermenu_Page_UserMenu extends CRM_Core_Page {
   private $contactData = [];
 
   /**
-   * Replaces the placholders with actual data and then returns
+   * Replaces the placeholders with actual data and then returns
    * the processed markup
    *
    * @return string
