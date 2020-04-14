@@ -32,8 +32,8 @@
    * Injects the given markup in a menu wrapper with the given id
    * created to contain both the original menu and the user one
    *
-   * @param {string} menuMarkup
-   * @param {string} wrapperId
+   * @param {string} menuMarkup menu markup to inject.
+   * @param {string} wrapperId id for menu markup container.
    */
   function injectUserMenuInAMainMenuWrapper (menuMarkup, wrapperId) {
     var $menuMarkup = $(menuMarkup);

@@ -1,5 +1,4 @@
 <?php
-use CRM_Usermenu_ExtensionUtil as E;
 
 /**
  * Collection of upgrade steps.

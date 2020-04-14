@@ -8,7 +8,8 @@ class CRM_Usermenu_Upgrader_Setups_AddNavigationItems {
   /**
    * Adds the base navigation items required by the user menu extension.
    *
-   * @return Bool
+   * @return bool
+   *   True when the setup is applied successfully.
    */
   public function apply() {
     $userMenuValues = [
@@ -73,10 +74,13 @@ class CRM_Usermenu_Upgrader_Setups_AddNavigationItems {
   /**
    * Creates a navigation menu item if it does not exist.
    *
-   * @param Array $values
-   * @return Array
+   * @param array $values
+   *   The value to use when creating the navigation item.
+   *
+   * @return array
+   *   The navigation item data.
    */
-  private function createMenuItemIfItDoesntExist($values) {
+  private function createMenuItemIfItDoesntExist(array $values) {
     $menuItem = civicrm_api3('Navigation', 'get', [
       'name' => $values['name'],
     ]);

@@ -1,7 +1,11 @@
 <?php
 
+/**
+ * @file
+ * Usermenu extension file.
+ */
+
 require_once 'usermenu.civix.php';
-use CRM_Usermenu_ExtensionUtil as E;
 
 /**
  * Implements hook_civicrm_config().

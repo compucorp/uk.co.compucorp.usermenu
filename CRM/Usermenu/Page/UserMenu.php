@@ -1,24 +1,26 @@
 <?php
 
+/**
+ * User Menu page class.
+ */
 class CRM_Usermenu_Page_UserMenu extends CRM_Core_Page {
 
   /**
+   * The default user image path.
+   *
    * @const string
    */
   const DEFAULT_USER_IMAGE_PATH = '%{base}/images/profile-default.png';
 
   /**
-   * The contact data used to build the menu
+   * The contact data used to build the menu.
    *
    * @var array
    */
   private $contactData = [];
 
   /**
-   * Replaces the placeholders with actual data and then returns
-   * the processed markup
-   *
-   * @return string
+   * Appends the data for the menu navigation items, user name, and user image.
    */
   public function run() {
     $this->contactData();
@@ -34,6 +36,7 @@ class CRM_Usermenu_Page_UserMenu extends CRM_Core_Page {
    * Returns the default user image URL path.
    *
    * @return string
+   *   The user's default image path.
    */
   private function getDefaultImagePath() {
     $modulePath = (new CRM_Extension_System())
@@ -46,23 +49,26 @@ class CRM_Usermenu_Page_UserMenu extends CRM_Core_Page {
   /**
    * Returns the user menu navigation items.
    *
-   * @return Array
+   * @return array
+   *   The user menu navigation items.
    */
   private function getMenuItems() {
     $menuItems = civicrm_api3('Navigation', 'get', [
       'is_active' => 1,
       'parent_id' => 'user-menu-ext__user-menu',
-      'options' => [ 'sort' => 'weight ASC']
+      'options' => ['sort' => 'weight ASC'],
     ]);
 
     return $menuItems['values'];
   }
 
   /**
-   * Returns the contact data, or fetches it from the api if
-   * it's not yet available
+   * Returns the contact data.
+   *
+   * It fetches it from the api if it's not yet available.
    *
    * @return array
+   *   The contact data.
    */
   private function contactData() {
     if (empty($this->contactData)) {
@@ -73,30 +79,34 @@ class CRM_Usermenu_Page_UserMenu extends CRM_Core_Page {
   }
 
   /**
-   * Fetches the contact data from the API and then
-   * normalizes the response
+   * Fetches the contact data from the API and then normalizes the response.
    *
    * @return array
+   *   The contact data.
    */
   private function getContactDataFromApi() {
     $rawContactData = civicrm_api3('Contact', 'getsingle', [
       'return' => ['id', 'display_name', 'image_URL'],
       'id' => CRM_Core_Session::getLoggedInContactID(),
-      'api.User.getsingle' => ['contact_id' => '$value.contact_id']
+      'api.User.getsingle' => ['contact_id' => '$value.contact_id'],
     ]);
 
-    return $this->normalizeContactDataAPIResponse($rawContactData);
+    return $this->normalizeContactDataApiResponse($rawContactData);
   }
 
   /**
-   * Normalizes the given contact data, removing any odd structure
-   * related to the API response
+   * Normalizes the given contact data.
+   *
+   * It removes any odd structure
+   * related to the API response.
    *
    * @param array $rawData
+   *   The contact data as returned by the API.
    *
    * @return array
+   *   The normalized contact data.
    */
-  private function normalizeContactDataAPIResponse($rawData) {
+  private function normalizeContactDataApiResponse(array $rawData) {
     $rawData['cmsId'] = $rawData['api.User.getsingle']['id'];
     unset($rawData['api.User.getsingle']);
 
@@ -104,10 +114,13 @@ class CRM_Usermenu_Page_UserMenu extends CRM_Core_Page {
   }
 
   /**
-   * Returns the user name, falling back to a generic name if the user
-   * doesn't have one
+   * Returns the user name.
+   *
+   * It falls back to a generic name if the user
+   * doesn't have one.
    *
    * @return string
+   *   The user name.
    */
   private function getUserName() {
     if (!empty($this->contactData()['display_name'])) {
@@ -118,10 +131,13 @@ class CRM_Usermenu_Page_UserMenu extends CRM_Core_Page {
   }
 
   /**
-   * Returns the path of the user's image, falling back to the CMS's default
-   * image if the user doesn't have one
+   * Returns the path of the user's image.
+   *
+   * It falls back to the CMS's default
+   * image if the user doesn't have one.
    *
    * @return string
+   *   The user image's path.
    */
   private function getUserImagePath() {
     if (!empty($this->contactData()['image_URL'])) {
@@ -130,4 +146,5 @@ class CRM_Usermenu_Page_UserMenu extends CRM_Core_Page {
 
     return $this->getDefaultImagePath();
   }
+
 }
