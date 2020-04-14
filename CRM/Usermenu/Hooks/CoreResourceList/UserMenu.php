@@ -38,7 +38,6 @@ class CRM_Usermenu_Hooks_CoreResourceList_UserMenu {
    */
   private function getActiveUserMenu() {
     return civicrm_api3('Navigation', 'get', [
-      'sequential' => 1,
       'is_active' => 1,
       'name' => 'user-menu-ext__user-menu',
       'options' => ['limit' => 1],

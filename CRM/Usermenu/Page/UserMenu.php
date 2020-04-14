@@ -50,7 +50,6 @@ class CRM_Usermenu_Page_UserMenu extends CRM_Core_Page {
    */
   private function getMenuItems() {
     $menuItems = civicrm_api3('Navigation', 'get', [
-      'sequential' => 1,
       'is_active' => 1,
       'parent_id' => 'user-menu-ext__user-menu',
       'options' => [ 'sort' => 'weight ASC']

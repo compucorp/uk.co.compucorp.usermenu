@@ -78,7 +78,6 @@ class CRM_Usermenu_Upgrader_Setups_AddNavigationItems {
    */
   private function createMenuItemIfItDoesntExist($values) {
     $menuItem = civicrm_api3('Navigation', 'get', [
-      'sequential' => 1,
       'name' => $values['name'],
     ]);
 
