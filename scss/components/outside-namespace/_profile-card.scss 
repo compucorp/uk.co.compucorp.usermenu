@@ -15,8 +15,8 @@
   > img {
     background: $gray-light;
     border-radius: 50%;
-    width: 100%;
     vertical-align: middle;
+    width: 100%;
   }
 
   + .civicrm-usermenu__card__name {

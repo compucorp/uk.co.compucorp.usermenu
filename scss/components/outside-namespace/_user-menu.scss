@@ -17,9 +17,8 @@ $civicrm-usermenu-user-menu-dropdown-item-gap: 0 30px 0 20px;
 }
 
 .civicrm-usermenu__data {
-
   > .civicrm-usermenu__card {
-    margin: -2px 8px 0 8px; // To improve, the vertical margin is just to vertically align the card
+    margin: -2px 8px 0; // To improve, the vertical margin is just to vertically align the card
     vertical-align: top;
   }
 
@@ -71,7 +70,7 @@ $civicrm-usermenu-user-menu-dropdown-item-gap: 0 30px 0 20px;
 .civicrm-usermenu__dropdown__username {
   color: $civicrm-usermenu-user-menu-dropdown-username-color;
 
-  &:after {
+  &::after {
     border-top: 1px solid $crm-grayblue-dark;
     content: '';
     display: block;

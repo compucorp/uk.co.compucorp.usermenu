@@ -1,0 +1,6 @@
+#civicrm-menu {
+  [data-name='user-menu-ext__user-menu'],
+  [data-name='user-menu-ext__home-menu'] {
+    display: none;
+  }
+}

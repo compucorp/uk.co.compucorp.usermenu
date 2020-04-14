@@ -1,7 +1,11 @@
 <?php
 
+/**
+ * @file
+ * Usermenu extension file.
+ */
+
 require_once 'usermenu.civix.php';
-use CRM_Usermenu_ExtensionUtil as E;
 
 /**
  * Implements hook_civicrm_config().
@@ -135,59 +139,22 @@ function usermenu_civicrm_entityTypes(&$entityTypes) {
 }
 
 /**
- * Implements hook_civicrm_thems().
+ * Implements hook_civicrm_themes().
  */
 function usermenu_civicrm_themes(&$themes) {
   _usermenu_civix_civicrm_themes($themes);
 }
 
 /**
- * Implements hook_civicrm_alterContent().
- * Adds extra settings fields to the Civicase Admin Settings form.
- *
- * @link https://docs.civicrm.org/dev/en/latest/hooks/hook_civicrm_alterContent/
- */
-function usermenu_civicrm_alterContent (&$content, $context, $templateName, $object) {
-  $isViewingMiscSettingsForm = get_class($object) === CRM_Admin_Form_Setting_Miscellaneous::class;
-
-  if (!$isViewingMiscSettingsForm) {
-    return;
-  }
-
-  $settingsTemplate = &CRM_Core_Smarty::singleton();
-  $settingsTemplateHtml = $settingsTemplate->fetchWith('CRM/Usermenu/Admin/Form/Settings.tpl', []);
-
-  $doc = phpQuery::newDocumentHTML($content);
-  $doc->find('table.form-layout:eq(1) tr:last')->append($settingsTemplateHtml);
-
-  $content = $doc->getDocument();
-}
-
-/**
  * Implements hook_civicrm_coreResourceList().
  */
 function usermenu_civicrm_coreResourceList(&$items, $region) {
-  $allowCiviCrmUserMenu = (bool) Civi::settings()->get('allowCivicrmUserMenu');
-  $isHeaderRegion = $region === 'html-header';
+  $hooks = [
+    new CRM_Usermenu_Hooks_CoreResourceList_Stylesheets($items, $region),
+    new CRM_Usermenu_Hooks_CoreResourceList_UserMenu($items, $region),
+  ];
 
-  if ($isHeaderRegion && $allowCiviCrmUserMenu) {
-    CRM_Core_Resources::singleton()->addScriptFile('uk.co.compucorp.usermenu', 'js/usermenu.js', 1010);
-    CRM_Core_Resources::singleton()->addStyleFile('uk.co.compucorp.usermenu', 'css/usermenu.min.css', 100, 'html-header');
+  foreach ($hooks as $hook) {
+    $hook->run();
   }
-}
-
-/**
- * Implements hook_civicrm_preProcess().
- */
-function usermenu_civicrm_preProcess($formName, &$form) {
-  $isViewingMiscSettingsForm = $formName === CRM_Admin_Form_Setting_Miscellaneous::class;
-
-  if (!$isViewingMiscSettingsForm) {
-    return;
-  }
-
-  $settings = $form->getVar('_settings');
-  $settings['allowCivicrmUserMenu'] = CRM_Core_BAO_Setting::SYSTEM_PREFERENCES_NAME;
-
-  $form->setVar('_settings', $settings);
 }
