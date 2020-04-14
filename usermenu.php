@@ -150,6 +150,7 @@ function usermenu_civicrm_themes(&$themes) {
  */
 function usermenu_civicrm_coreResourceList(&$items, $region) {
   $hooks = [
+    new CRM_Usermenu_Hooks_CoreResourceList_HomeMenu($items, $region),
     new CRM_Usermenu_Hooks_CoreResourceList_Stylesheets($items, $region),
     new CRM_Usermenu_Hooks_CoreResourceList_UserMenu($items, $region),
   ];
