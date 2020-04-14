@@ -1,14 +1,16 @@
 <?php
 
+use CRM_Usermenu_Hooks_CoreResourceList_Base as BaseHook;
+
 /**
  * User Menu Stylesheets Core Resource List hook.
  */
-class CRM_Usermenu_Hooks_CoreResourceList_Stylesheets {
+class CRM_Usermenu_Hooks_CoreResourceList_Stylesheets extends BaseHook {
 
   /**
    * Appends the user menu stylesheet.
    */
-  public function run() {
+  protected function appendResources() {
     CRM_Core_Resources::singleton()
       ->addStyleFile(
         'uk.co.compucorp.usermenu',
@@ -23,16 +25,11 @@ class CRM_Usermenu_Hooks_CoreResourceList_Stylesheets {
    *
    * Runs when appending assets to the HTML header region.
    *
-   * @param array $items
-   *   A list of core assets that will be included.
-   * @param string $region
-   *   The region the assets will be appended to.
-   *
    * @return bool
    *   True when the hook should run.
    */
-  public function shouldRun(array &$items, $region) {
-    $isHeaderRegion = $region === 'html-header';
+  protected function shouldRun() {
+    $isHeaderRegion = $this->region === 'html-header';
 
     return $isHeaderRegion;
   }

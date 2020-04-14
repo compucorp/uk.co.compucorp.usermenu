@@ -1,14 +1,16 @@
 <?php
 
+use CRM_Usermenu_Hooks_CoreResourceList_Base as BaseHook;
+
 /**
  * User Menu Core Resource List hook.
  */
-class CRM_Usermenu_Hooks_CoreResourceList_UserMenu {
+class CRM_Usermenu_Hooks_CoreResourceList_UserMenu extends BaseHook {
 
   /**
    * Appends the user menu JS asset.
    */
-  public function run() {
+  protected function appendResources() {
     CRM_Core_Resources::singleton()
       ->addScriptFile('uk.co.compucorp.usermenu', 'js/usermenu.js', 1010);
   }
@@ -19,17 +21,12 @@ class CRM_Usermenu_Hooks_CoreResourceList_UserMenu {
    * Runs when appending assets to the HTML header region and the user menu
    * navigation item is active.
    *
-   * @param array $items
-   *   A list of core assets that will be included.
-   * @param string $region
-   *   The region the assets will be appended to.
-   *
    * @return bool
    *   True when the hook should run.
    */
-  public function shouldRun(array &$items, $region) {
+  protected function shouldRun() {
     $activeUserMenuItem = $this->getActiveUserMenu();
-    $isHeaderRegion = $region === 'html-header';
+    $isHeaderRegion = $this->region === 'html-header';
     $isUserMenuActive = $activeUserMenuItem['count'] > 0;
 
     return $isHeaderRegion && $isUserMenuActive;
