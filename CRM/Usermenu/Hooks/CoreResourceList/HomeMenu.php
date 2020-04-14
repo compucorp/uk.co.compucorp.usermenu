@@ -42,9 +42,9 @@ class CRM_Usermenu_Hooks_CoreResourceList_HomeMenu extends BaseHook {
   protected function shouldRun() {
     $homeMenu = $this->getHomeMenu();
     $isHeaderRegion = $this->region === 'html-header';
-    $isUserMenuActive = $homeMenu && $homeMenu['is_active'] == 1;
+    $isHomeMenuActive = $homeMenu && $homeMenu['is_active'] == 1;
 
-    return $isHeaderRegion && $isUserMenuActive;
+    return $isHeaderRegion && $isHomeMenuActive;
   }
 
   /**
@@ -59,7 +59,6 @@ class CRM_Usermenu_Hooks_CoreResourceList_HomeMenu extends BaseHook {
   private function getHomeMenu() {
     if (!$this->homeMenu) {
       $response = civicrm_api3('Navigation', 'get', [
-        'sequential' => 1,
         'name' => 'user-menu-ext__home-menu',
         'options' => ['limit' => 1],
       ]);
