@@ -49,6 +49,10 @@ class CRM_Usermenu_Page_UserMenu extends CRM_Core_Page {
   /**
    * Returns the user menu navigation items.
    *
+   * Each menu item needs to support the following conditions:
+   * - Be active.
+   * - The current logged in user needs to have permissions to access the item.
+   *
    * @return array
    *   The user menu navigation items.
    */
@@ -59,7 +63,22 @@ class CRM_Usermenu_Page_UserMenu extends CRM_Core_Page {
       'options' => ['sort' => 'weight ASC'],
     ]);
 
-    return $menuItems['values'];
+    return $this->filterMenuItemsByPermission($menuItems['values']);
+  }
+
+  /**
+   * Filter the given menu items by permission.
+   *
+   * Only the menu items the user has permission to see will be returned.
+   *
+   * @param array $menuItems
+   *   A list of menu items and their permissions.
+   *
+   * @return array
+   *   A filtered list of menu items.
+   */
+  private function filterMenuItemsByPermission(array $menuItems) {
+    return array_filter($menuItems, 'CRM_Core_BAO_Navigation::checkPermission');
   }
 
   /**

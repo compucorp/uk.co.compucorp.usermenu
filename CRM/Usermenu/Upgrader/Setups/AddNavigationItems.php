@@ -23,18 +23,12 @@ class CRM_Usermenu_Upgrader_Setups_AddNavigationItems {
     $homeMenuValues = [
       'label' => 'Home',
       'name' => 'user-menu-ext__home-menu',
+      'icon' => 'fa fa-home',
       'url' => '/civicrm/dashboard?reset=1',
       'permission' => 'access CiviCRM',
       'is_active' => 1,
     ];
     $userMenuChildItemsValues = [
-      [
-        'label' => 'CiviCRM Home',
-        'name' => 'user-menu-ext__user-menu__civicrm-home',
-        'icon' => 'fa fa-home',
-        'url' => '/civicrm/dashboard?reset=1',
-        'is_active' => 1,
-      ],
       [
         'label' => 'My Account',
         'name' => 'user-menu-ext__user-menu__my-account',

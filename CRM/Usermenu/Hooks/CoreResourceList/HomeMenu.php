@@ -33,8 +33,10 @@ class CRM_Usermenu_Hooks_CoreResourceList_HomeMenu extends BaseHook {
   /**
    * Determines if the function should run.
    *
-   * Runs when appending assets to the HTML header region, and when the
-   * Home Menu navigation item is set to active.
+   * Runs given the following conditions:
+   * - When appending assets to the HTML header region.
+   * - The Home Menu navigation item is set to active.
+   * - The user can access the Home Menu navigation item.
    *
    * @return bool
    *   True when the hook should run.
@@ -43,8 +45,9 @@ class CRM_Usermenu_Hooks_CoreResourceList_HomeMenu extends BaseHook {
     $homeMenu = $this->getHomeMenu();
     $isHeaderRegion = $this->region === 'html-header';
     $isHomeMenuActive = $homeMenu && $homeMenu['is_active'] == 1;
+    $canAccessHomeMenu = CRM_Core_BAO_Navigation::checkPermission($homeMenu);
 
-    return $isHeaderRegion && $isHomeMenuActive;
+    return $isHeaderRegion && $isHomeMenuActive && $canAccessHomeMenu;
   }
 
   /**
