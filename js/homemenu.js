@@ -1,12 +1,17 @@
-(function ($, homeMenuItem) {
-  var $homeMenu, $homeMenuLink;
+(function ($, _, homeMenuItem) {
+  var $homeMenu, $homeMenuLink, isHomeMenuReplaced;
 
-  $(document).ready(function () {
-    $homeMenu = $('#civicrm-menu [data-name="Home"]');
-    $homeMenuLink = $homeMenu.find('> a');
-
-    replaceHomeMenu();
-  });
+  /**
+   * We run the home menu replacing both on document ready and when the
+   * CiviCRM Menu has loaded because CiviCRM appends the menu at different times
+   * and we can't determine when it was appended.
+   *
+   * See: https://github.com/civicrm/civicrm-core/blob/master/js/crm.menubar.js#L28-L44
+   */
+  (function init () {
+    $(document).ready(runHomeMenuReplacing);
+    $(document).on('crmLoad', '#civicrm-menu', runHomeMenuReplacing);
+  })();
 
   /**
    * Replaces the home menu with a custom one with the following features:
@@ -26,4 +31,26 @@
       .attr('href', homeMenuItem.url)
       .appendTo($homeMenu);
   }
-})(CRM.$, CRM['usermenu-ext__home-menu']);
+
+  /**
+   * Run the home menu replacing functions as long as the following is true:
+   *
+   * - The home menu is ready to be replaced. IE: it exists in the DOM.
+   * - The home menu has not been replaced already.
+   */
+  function runHomeMenuReplacing () {
+    var isHomeMenuReady;
+
+    $homeMenu = $('#civicrm-menu [data-name="Home"]');
+    $homeMenuLink = $homeMenu.find('> a');
+    isHomeMenuReady = $homeMenu.length > 0;
+
+    if (!isHomeMenuReady || isHomeMenuReplaced) {
+      return;
+    }
+
+    isHomeMenuReplaced = true;
+
+    replaceHomeMenu();
+  }
+})(CRM.$, CRM._, CRM['usermenu-ext__home-menu']);
