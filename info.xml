@@ -1,26 +1,26 @@
 <?xml version="1.0"?>
 <extension key="uk.co.compucorp.usermenu" type="module">
   <file>usermenu</file>
-  <name>FIXME</name>
-  <description>FIXME</description>
+  <name>User Menu</name>
+  <description>This extension adds a user menu with links for the user profile page and logout.</description>
   <license>AGPL-3.0</license>
   <maintainer>
-    <author>Nobody</author>
-    <email>nobody@compucorp.co.uk</email>
+    <author>Compucorp</author>
+    <email>info@compucorp.co.uk</email>
   </maintainer>
   <urls>
-    <url desc="Main Extension Page">http://FIXME</url>
-    <url desc="Documentation">http://FIXME</url>
+    <url desc="Main Extension Page">https://github.com/compucorp/uk.co.compucorp.usermenu</url>
+    <url desc="Documentation">https://github.com/compucorp/uk.co.compucorp.usermenu/blob/master/README.md</url>
     <url desc="Support">http://FIXME</url>
     <url desc="Licensing">http://www.gnu.org/licenses/agpl-3.0.html</url>
   </urls>
-  <releaseDate>2020-03-04</releaseDate>
+  <releaseDate>2020-04-24</releaseDate>
   <version>1.0</version>
-  <develStage>alpha</develStage>
+  <develStage>stable</develStage>
   <compatibility>
     <ver>5.0</ver>
   </compatibility>
-  <comments>This is a new, undeveloped module</comments>
+  <comments></comments>
   <civix>
     <namespace>CRM/Usermenu</namespace>
   </civix>
