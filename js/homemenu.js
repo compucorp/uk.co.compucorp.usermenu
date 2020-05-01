@@ -14,6 +14,16 @@
   })();
 
   /**
+   * Moves the "Find Menu Item" element to the "Search" menu.
+   */
+  function moveFindMenuItemToSearchMenu () {
+    var $findMenuItem = $homeMenu.find('[data-name="MenubarDrillDown"]').clone();
+    var $searchMenuDropdown = $('[data-name="Search"] > ul');
+
+    $findMenuItem.prependTo($searchMenuDropdown);
+  }
+
+  /**
    * Replaces the home menu with a custom one with the following features:
    *
    * - Removes the dropdown menu.
@@ -52,5 +62,6 @@
     isHomeMenuReplaced = true;
 
     replaceHomeMenu();
+    moveFindMenuItemToSearchMenu();
   }
 })(CRM.$, CRM._, CRM['usermenu-ext__home-menu']);
