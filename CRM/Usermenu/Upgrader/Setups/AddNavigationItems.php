@@ -55,6 +55,7 @@ class CRM_Usermenu_Upgrader_Setups_AddNavigationItems {
     $userMenu = $this->createMenuItemIfItDoesntExist($userMenuValues);
 
     $this->createMenuItemIfItDoesntExist($homeMenuValues);
+    CRM_Core_PseudoConstant::flush();
 
     foreach ($userMenuChildItemsValues as $userMenuChildItemValue) {
       $userMenuChildItemValue['parent_id'] = $userMenu['id'];
