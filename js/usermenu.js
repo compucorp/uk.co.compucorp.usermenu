@@ -38,10 +38,11 @@
   function injectUserMenuInAMainMenuWrapper (menuMarkup, wrapperId) {
     var $menuMarkup = $(menuMarkup);
     var $menuWrapper = $('<div>');
+    var prevSibling = CRM.$('#civicrm-menu-nav').prev();
 
     $menuWrapper.attr('id', wrapperId);
     $menuWrapper.append($('#civicrm-menu-nav'));
     $menuWrapper.append($menuMarkup);
-    $menuWrapper.insertAfter('#page');
+    $menuWrapper.insertAfter(prevSibling);
   }
 }(CRM.$, CRM._, ts));
